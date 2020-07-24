@@ -1,0 +1,112 @@
+{
+    "name": "radium",
+    "displayName": "Radium",
+    "description": "A log highlighter extension for VS Code",
+    "version": "0.1.0",
+    "publisher": "athiththan11",
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "extensionKind": [
+        "ui",
+        "workspace"
+    ],
+    "activationEvents": [
+        "onLanguage:log"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "log",
+                "aliases": [
+                    "Log File",
+                    "log"
+                ],
+                "extensions": [
+                    ".log"
+                ]
+            }
+        ],
+        "grammars": [
+            {
+                "language": "log",
+                "scopeName": "text.log",
+                "path": "./syntaxes/log.tmLanguage"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "The configurations related to Radium extension",
+            "properties": {
+                "radium.highlight": {
+                    "title": "Radium Highlight",
+                    "description": "An array of log patterns to be highlighted",
+                    "type": "array",
+                    "items": {
+                        "title": "Radium Highlight configuration",
+                        "description": "Highlight custom log patterns with the given color and tooltip information",
+                        "type": "object",
+                        "properties": {
+                            "pattern": {
+                                "pattern": "^[^$|\\s]",
+                                "type": "string",
+                                "title": "The log pattern to be highlighted",
+                                "description": "Specify an exact string to be highlighted or a regular expression pattern"
+                            },
+                            "color": {
+                                "format": "color-hex",
+                                "type": "string",
+                                "title": "Font color",
+                                "description": "The font color"
+                            },
+                            "highlight": {
+                                "format": "color-hex",
+                                "type": "string",
+                                "title": "Highlight color",
+                                "description": "The background color"
+                            },
+                            "tooltip": {
+                                "type": "string",
+                                "title": "Tooltip information or message",
+                                "description": "The information/message to be shown when hovering the highlighted element"
+                            }
+                        },
+                        "required": [
+                            "pattern"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint src --ext ts",
+        "tslint": "tslint --project ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^13.11.0",
+        "@types/vscode": "^1.47.0",
+        "@typescript-eslint/eslint-plugin": "^2.30.0",
+        "@typescript-eslint/parser": "^2.30.0",
+        "eslint": "^6.8.0",
+        "glob": "^7.1.6",
+        "mocha": "^7.1.2",
+        "tslint": "^6.1.2",
+        "typescript": "^3.8.3",
+        "vscode-test": "^1.3.0"
+    },
+    "dependencies": {
+        "moment": "^2.27.0"
+    }
+}
