@@ -28,10 +28,49 @@
         "workspace"
     ],
     "activationEvents": [
+        "onView:logPatterns",
         "onLanguage:log"
     ],
     "main": "./out/extension.js",
     "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "radium-explorer",
+                    "title": "Radium",
+                    "icon": "media/radium.svg"
+                }
+            ]
+        },
+        "views": {
+            "radium-explorer": [
+                {
+                    "id": "logPatterns",
+                    "name": "Log Patterns",
+                    "contextualTitle": "Radium",
+                    "icon": "media/radium.svg"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "logPatterns.refreshEntry",
+                "title": "Refresh",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            }
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "logPatterns.refreshEntry",
+                    "when": "view == logPatterns",
+                    "group": "navigation"
+                }
+            ]
+        },
         "languages": [
             {
                 "id": "log",
@@ -64,6 +103,11 @@
                         "description": "Highlight custom log patterns with the given color and tooltip information",
                         "type": "object",
                         "properties": {
+                            "name": {
+                                "type": "string",
+                                "title": "The name of the log pattern",
+                                "description": "The title/name for the specified log pattern"
+                            },
                             "pattern": {
                                 "pattern": "^[^$|\\s]",
                                 "type": "string",
@@ -89,6 +133,7 @@
                             }
                         },
                         "required": [
+                            "name",
                             "pattern"
                         ]
                     }

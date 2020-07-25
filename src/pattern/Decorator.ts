@@ -4,7 +4,6 @@ import { LogPattern } from './LogPattern';
 export class Decorator {
     private _configLogPatterns: LogPattern[];
     private _cache: Map<vscode.Uri, Map<LogPattern, vscode.DecorationOptions[]>>;
-    // private _cache: Map<vscode.Uri, Map<LogPattern, vscode.Range[]>>;
 
     private readonly RADIUM: string = 'radium';
     private readonly HIGHLIGHT: string = 'highlight';
@@ -12,7 +11,6 @@ export class Decorator {
     public constructor() {
         this._configLogPatterns = [];
         this._cache = new Map<vscode.Uri, Map<LogPattern, vscode.DecorationOptions[]>>();
-        // this._cache = new Map<vscode.Uri, Map<LogPattern, vscode.Range[]>>();
     }
 
     public dispose() {
@@ -29,6 +27,7 @@ export class Decorator {
 
     public updateConfigs(): void {
         const configLogPatterns = vscode.workspace.getConfiguration(this.RADIUM).get(this.HIGHLIGHT) as {
+            name: string;
             pattern: string;
             color?: string;
             highlight?: string;
@@ -43,9 +42,10 @@ export class Decorator {
         for (const i of configLogPatterns) {
             if (
                 (i.color !== undefined || i.highlight !== undefined || i.tooltip !== undefined) &&
+                i.name !== undefined &&
                 i.pattern !== undefined
             ) {
-                this._configLogPatterns.push(new LogPattern(i.pattern, i.color, i.highlight, i.tooltip));
+                this._configLogPatterns.push(new LogPattern(i.name, i.pattern, i.color, i.highlight, i.tooltip));
             }
         }
     }
@@ -70,10 +70,6 @@ export class Decorator {
         for (const log of this._configLogPatterns) {
             const patternCache = docCache?.get(log);
 
-            // const ranges = patternCache?.filter((range) => {
-            //     return range.end.isBefore(change.range.start);
-            // });
-
             const options = patternCache?.filter((option) => {
                 return option.range.end.isBefore(change.range.start);
             });
@@ -83,7 +79,6 @@ export class Decorator {
                 while (matches) {
                     const start = doc.positionAt(doc.offsetAt(startPos) + matches.index);
                     const end = start.translate(0, matches[0].length);
-                    // ranges?.push(new vscode.Range(start, end));
                     options?.push({
                         hoverMessage: log.tooltip!,
                         range: new vscode.Range(start, end),
@@ -95,8 +90,6 @@ export class Decorator {
 
             docCache?.set(log, options!);
             editors[0].setDecorations(log.decoration, options!);
-            // docCache?.set(log, ranges!);
-            // editors[0].setDecorations(log.decoration, ranges!);
         }
 
         this._cache.set(doc.uri, docCache!);
@@ -107,10 +100,8 @@ export class Decorator {
             for (const editor of editors) {
                 const content = editor.document.getText();
                 const options = new Map<LogPattern, vscode.DecorationOptions[]>();
-                // const ranges = new Map<LogPattern, vscode.Range[]>();
 
                 for (const log of this._configLogPatterns) {
-                    // const logRanges = [];
                     const decorationOptions: vscode.DecorationOptions[] = [];
                     for (const regex of log.regExpressions) {
                         let matches = regex.exec(content);
@@ -118,7 +109,6 @@ export class Decorator {
                         while (matches) {
                             const start = editor.document.positionAt(matches.index);
                             const end = start.translate(0, matches[0].length);
-                            // logRanges.push(new vscode.Range(start, end));
 
                             decorationOptions.push({
                                 hoverMessage: log.tooltip!,
@@ -131,8 +121,6 @@ export class Decorator {
 
                     options.set(log, decorationOptions);
                     editor.setDecorations(log.decoration, decorationOptions);
-                    // ranges.set(log, logRanges);
-                    // editor.setDecorations(log.decoration, logRanges);
                 }
 
                 this._cache.set(editor.document.uri, options);

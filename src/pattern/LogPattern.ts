@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
 export class LogPattern {
+    public readonly name: string;
     public readonly pattern: string;
     public readonly color?: string;
     public readonly highlight?: string;
@@ -9,7 +10,8 @@ export class LogPattern {
     public readonly regExpressions: RegExp[];
     public readonly decoration: vscode.TextEditorDecorationType;
 
-    public constructor(pattern: string, color?: string, highlight?: string, tooltip?: string) {
+    public constructor(name: string, pattern: string, color?: string, highlight?: string, tooltip?: string) {
+        this.name = name;
         this.pattern = pattern;
         this.color = color;
         this.highlight = highlight;
