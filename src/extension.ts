@@ -2,8 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-import Decorator = require('./pattern/Decorator');
-import Controller = require('./pattern/Controller');
+import { Decorator } from './pattern/Decorator';
+import { Controller } from './pattern/Controller';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed

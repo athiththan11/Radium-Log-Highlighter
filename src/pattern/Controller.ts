@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import Decorator = require('./Decorator');
+import { Decorator } from './Decorator';
 
-class Controller {
+export class Controller {
     private _disposable: vscode.Disposable;
     private _decorator: Decorator;
 
@@ -69,5 +69,3 @@ class Controller {
         }
     }
 }
-
-export = Controller;

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import LogPattern = require('./LogPattern');
+import { LogPattern } from './LogPattern';
 
-class Decorator {
+export class Decorator {
     private _configLogPatterns: LogPattern[];
     private _cache: Map<vscode.Uri, Map<LogPattern, vscode.DecorationOptions[]>>;
     // private _cache: Map<vscode.Uri, Map<LogPattern, vscode.Range[]>>;
@@ -140,5 +140,3 @@ class Decorator {
         }
     }
 }
-
-export = Decorator;

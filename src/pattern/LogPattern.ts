@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-class LogPattern {
+export class LogPattern {
     public readonly pattern: string;
     public readonly color?: string;
     public readonly highlight?: string;
@@ -53,5 +53,3 @@ class LogPattern {
         return expressions;
     }
 }
-
-export = LogPattern;
