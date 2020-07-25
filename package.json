@@ -4,12 +4,25 @@
     "description": "A log highlighter extension for VS Code",
     "version": "0.1.0",
     "publisher": "athiththan11",
+    "author": {
+        "name": "Athiththan"
+    },
     "engines": {
         "vscode": "^1.47.0"
     },
     "categories": [
         "Other"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/athiththan11/Radium"
+    },
+    "keywords": [
+        "radium",
+        "log-highlighter",
+        "logging"
+    ],
+    "icon": "media/radium.png",
     "extensionKind": [
         "ui",
         "workspace"

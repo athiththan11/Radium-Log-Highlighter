@@ -6,7 +6,7 @@
 <br />
 
 <p align='center'>
-    <img width='200' src='docs/assets/radium.png'>
+    <img width='200' src='media/radium.png'>
 </p>
 
 <br />
