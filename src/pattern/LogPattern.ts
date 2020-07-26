@@ -21,6 +21,8 @@ export class LogPattern {
         this.decoration = vscode.window.createTextEditorDecorationType({
             backgroundColor: this.highlight,
             color: this.color,
+            overviewRulerLane: vscode.OverviewRulerLane.Center,
+            overviewRulerColor: this.highlight,
             rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
         });
     }

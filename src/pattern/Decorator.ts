@@ -1,12 +1,10 @@
 import * as vscode from 'vscode';
 import { LogPattern } from './LogPattern';
+import { RadiumConstants } from '../util/RadiumConstants';
 
 export class Decorator {
     private _configLogPatterns: LogPattern[];
     private _cache: Map<vscode.Uri, Map<LogPattern, vscode.DecorationOptions[]>>;
-
-    private readonly RADIUM: string = 'radium';
-    private readonly HIGHLIGHT: string = 'highlight';
 
     public constructor() {
         this._configLogPatterns = [];
@@ -26,7 +24,9 @@ export class Decorator {
     }
 
     public updateConfigs(): void {
-        const configLogPatterns = vscode.workspace.getConfiguration(this.RADIUM).get(this.HIGHLIGHT) as {
+        const configLogPatterns = vscode.workspace
+            .getConfiguration(RadiumConstants.CONFIG_RADIUM)
+            .get(RadiumConstants.CONFIG_HIGHLIGHT) as {
             name: string;
             pattern: string;
             color?: string;
