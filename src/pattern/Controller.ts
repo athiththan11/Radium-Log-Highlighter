@@ -1,11 +1,10 @@
 import * as vscode from 'vscode';
 import { Decorator } from './Decorator';
+import { RadiumConstants } from '../util/RadiumConstants';
 
 export class Controller {
     private _disposable: vscode.Disposable;
     private _decorator: Decorator;
-
-    private readonly LOG_ID: string = 'log';
 
     public constructor(decorator: Decorator) {
         this._decorator = decorator;
@@ -45,7 +44,7 @@ export class Controller {
     private onDidChangeConfiguration(): void {
         this._decorator.updateConfigs();
         const editors = vscode.window.visibleTextEditors.filter((editor) => {
-            return editor.document.languageId === this.LOG_ID;
+            return editor.document.languageId === RadiumConstants.RADIUM_LOG_ID;
         });
 
         if (editors.length !== 0) {
@@ -54,14 +53,14 @@ export class Controller {
     }
 
     private onDidChangeTextDocument(event: vscode.TextDocumentChangeEvent): void {
-        if (event.document.languageId === this.LOG_ID) {
+        if (event.document.languageId === RadiumConstants.RADIUM_LOG_ID) {
             this._decorator.decorateDoc(event);
         }
     }
 
     private onDidChangeVisibleTextEditors(txtEditors: vscode.TextEditor[]): void {
         const editors = txtEditors.filter((editor) => {
-            return editor.document.languageId === this.LOG_ID;
+            return editor.document.languageId === RadiumConstants.RADIUM_LOG_ID;
         });
 
         if (editors.length !== 0) {

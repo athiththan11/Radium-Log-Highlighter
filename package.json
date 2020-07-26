@@ -28,16 +28,15 @@
         "workspace"
     ],
     "activationEvents": [
-        "onLanguage:log"
+        "onLanguage:RadiumLog"
     ],
     "main": "./dist/extension",
     "contributes": {
         "languages": [
             {
-                "id": "log",
+                "id": "RadiumLog",
                 "aliases": [
-                    "Log File",
-                    "log"
+                    "Radium Log File"
                 ],
                 "extensions": [
                     ".log"
@@ -46,7 +45,7 @@
         ],
         "grammars": [
             {
-                "language": "log",
+                "language": "RadiumLog",
                 "scopeName": "text.log",
                 "path": "./syntaxes/log.tmLanguage"
             }
