@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { RadiumConstants } from '../util/RadiumConstants';
 
 export class LogPattern {
     public readonly pattern: string;
@@ -16,11 +17,13 @@ export class LogPattern {
         this.tooltip = tooltip;
 
         this.regExpressions = this.createRegExpressions(pattern);
+
+        const highlightColor = this.highlight || RadiumConstants.RADIUM_HIGHLIGHT_COLOR;
         this.decoration = vscode.window.createTextEditorDecorationType({
-            backgroundColor: this.highlight,
+            backgroundColor: highlightColor,
             color: this.color,
-            overviewRulerLane: vscode.OverviewRulerLane.Center,
-            overviewRulerColor: this.highlight,
+            overviewRulerLane: vscode.OverviewRulerLane.Left,
+            overviewRulerColor: highlightColor,
             rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
         });
     }
